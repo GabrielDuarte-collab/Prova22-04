@@ -10,7 +10,7 @@ public class Lanchonete {
     Stack<Pedido> historico;
     HashMap<String, Produto> cardapio;
 
-    Lanchonete() {
+    public Lanchonete() {
         this.filaDePedidos = new LinkedList<>();
         this.historico = new Stack<>();
         this.cardapio = new HashMap<>();
@@ -23,25 +23,29 @@ public class Lanchonete {
 
     void buscarProduto(String nome) {
         boolean encontrado = false;
+
         for (Produto produto : cardapio.values()) {
             if (produto.nome.equalsIgnoreCase(nome)) {
-                System.out.println("Produto encontrado: ");
+                System.out.println("Produto encontrado:");
                 produto.exibir();
                 encontrado = true;
                 break;
             }
         }
+
         if (!encontrado) {
             System.out.println("Produto não encontrado no cardápio.");
         }
     }
 
-    void fazerPedido(int codigoProduto, String nomeCliente) {
+    void fazerPedido(String codigoProduto, String nomeCliente) {
         Produto produto = cardapio.get(codigoProduto);
+
         if (produto != null) {
             Pedido pedido = new Pedido(nomeCliente);
             pedido.adicionarItem(produto);
             filaDePedidos.add(pedido);
+
             System.out.println("Pedido de " + nomeCliente + " adicionado à fila.");
         } else {
             System.out.println("Produto não encontrado no cardápio.");
@@ -51,8 +55,10 @@ public class Lanchonete {
     void atenderProximo() {
         if (!filaDePedidos.isEmpty()) {
             Pedido pedidoAtendido = filaDePedidos.poll();
+
             System.out.println("\nAtendendo o pedido de " + pedidoAtendido.nomeCliente);
             pedidoAtendido.exibirPedido();
+
             historico.push(pedidoAtendido);
         } else {
             System.out.println("\nNão há pedidos na fila.");
@@ -62,6 +68,7 @@ public class Lanchonete {
     void verUltimoAtendido() {
         if (!historico.isEmpty()) {
             Pedido ultimoPedido = historico.peek();
+
             System.out.println("\nÚltimo Pedido Atendido:");
             ultimoPedido.exibirPedido();
         } else {
@@ -71,12 +78,12 @@ public class Lanchonete {
 
     void listaCardapio() {
         System.out.println("\nCardápio de Produtos:");
+
         if (cardapio.isEmpty()) {
             System.out.println("Cardápio vazio.");
         } else {
             for (Produto produto : cardapio.values()) {
                 produto.exibir();
-
             }
         }
     }

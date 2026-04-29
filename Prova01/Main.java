@@ -1,39 +1,40 @@
 package Prova01;
 
-
-
 public class Main {
     public static void main(String[] args) {
-       
+
         Lanchonete lanchonete = new Lanchonete();
 
-        
+        // Adicionando produtos
+        lanchonete.adicionarAoCardapio(new Produto("101", "Hambúrguer", "Lanche", 15.0));
+        lanchonete.adicionarAoCardapio(new Produto("102", "Refrigerante", "Bebida", 5.0));
+        lanchonete.adicionarAoCardapio(new Produto("103", "Batata Frita", "Lanche", 10.0));
+
+        // Listar cardápio
         lanchonete.listaCardapio();
 
-        
+        // Buscar produto
         System.out.println("\nBuscando o produto 'Refrigerante'...");
         lanchonete.buscarProduto("Refrigerante");
 
-        
+        // Fazer pedidos
         System.out.println("\nFazendo pedidos...");
-        lanchonete.fazerPedido(101, 1);  // Pedido do Hambúrguer
-        lanchonete.fazerPedido(102, 2);  // Pedido do Refrigerante
-        lanchonete.fazerPedido(103, 3);  // Pedido da Batata Frita
+        lanchonete.fazerPedido("101", "João");
+        lanchonete.fazerPedido("102", "Maria");
+        lanchonete.fazerPedido("103", "Carlos");
 
-        
-        System.out.println("\nAtendendo o primeiro pedido...");
-        lanchonete.atenderProximo();  
+        // Atender pedidos
+        System.out.println("\nAtendendo pedidos...");
+        lanchonete.atenderProximo();
+        lanchonete.atenderProximo();
 
-        System.out.println("\nAtendendo o próximo pedido...");
-        lanchonete.atenderProximo();  
+        // Ver último atendido
+        lanchonete.verUltimoAtendido();
 
-        
-        lanchonete.verUltimoAtendido();  
-
-        
-        System.out.println("\nTentando atender o próximo pedido, mas a fila pode estar vazia...");
-        lanchonete.atenderProximo(); 
-        lanchonete.atenderProximo();  
+        // Continuar atendimento
+        System.out.println("\nAtendendo restantes...");
+        lanchonete.atenderProximo();
+        lanchonete.atenderProximo();
     }
 }
 
