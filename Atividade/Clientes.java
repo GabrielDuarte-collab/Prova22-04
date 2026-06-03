@@ -19,7 +19,7 @@ public class Clientes {
 
     public Clientes(String nome, String cpf, String telefone, String email, String endereco) {
         this.nome = nome == null ? "" : nome.trim();
-        this.cpf = cpf == null ? "" : cpf.trim();
+        this.cpf = cpf == null ? "" : normalizeCPF(cpf);
         this.telefone = telefone == null ? "" : telefone.trim();
         this.email = email == null ? "" : email.trim();
         this.endereco = endereco == null ? "" : endereco.trim();
@@ -52,6 +52,9 @@ public class Clientes {
         if (cliente == null || cliente.cpf == null || cliente.cpf.trim().isEmpty()) {
             return false;
         }
+        if (!isCPFValido(cliente.cpf)) {
+            return false;
+        }
         if (buscarPorCPF(cliente.cpf) != null) {
             return false;
         }
@@ -71,7 +74,7 @@ public class Clientes {
     public static Clientes buscarPorCPF(String cpf) {
         if (cpf == null)
             return null;
-        String termo = cpf.trim();
+        String termo = normalizeCPF(cpf);
         for (Clientes c : CLIENTES) {
             if (c.cpf.equalsIgnoreCase(termo)) {
                 return c;
@@ -121,11 +124,23 @@ public class Clientes {
         if (termo == null)
             return false;
         String busca = termo.trim().toLowerCase();
-        return cpf.equalsIgnoreCase(busca)
+        String buscaDigits = termo.replaceAll("\\D", "");
+        return cpf.equalsIgnoreCase(busca) || cpf.equals(buscaDigits)
                 || nome.toLowerCase().contains(busca)
                 || telefone.toLowerCase().contains(busca)
                 || email.toLowerCase().contains(busca)
                 || endereco.toLowerCase().contains(busca);
+    }
+
+    private static String normalizeCPF(String cpf) {
+        if (cpf == null) return "";
+        return cpf.replaceAll("\\D", "").trim();
+    }
+
+    public static boolean isCPFValido(String cpf) {
+        if (cpf == null) return false;
+        String n = normalizeCPF(cpf);
+        return n.length() == 11 && n.matches("\\d{11}");
     }
 
     public void exibir() {

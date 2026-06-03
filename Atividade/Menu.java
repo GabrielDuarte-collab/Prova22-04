@@ -185,6 +185,11 @@ public class Menu {
         System.out.print("CPF: ");
         String cpf = scanner.nextLine().trim();
 
+        if (!Clientes.isCPFValido(cpf)) {
+            System.out.println("❌ Erro: CPF inválido! Deve conter 11 dígitos.");
+            return;
+        }
+
         if (Clientes.buscarPorCPF(cpf) != null) {
             System.out.println("❌ Erro: Cliente com este CPF já existe!");
             return;
@@ -245,6 +250,11 @@ public class Menu {
         System.out.print("Digite o CPF do cliente: ");
         String cpf = scanner.nextLine().trim();
 
+        if (!Clientes.isCPFValido(cpf)) {
+            System.out.println("❌ Erro: CPF inválido!");
+            return;
+        }
+
         if (Clientes.remover(cpf)) {
             System.out.println("✓ Cliente removido com sucesso!");
         } else {
@@ -258,6 +268,11 @@ public class Menu {
         System.out.println("\n--- NOVA VENDA ---");
         System.out.print("Digite o CPF do cliente: ");
         String cpf = scanner.nextLine().trim();
+
+        if (!Clientes.isCPFValido(cpf)) {
+            System.out.println("❌ Erro: CPF inválido! Deve conter 11 dígitos.");
+            return;
+        }
 
         Clientes cliente = Clientes.buscarPorCPF(cpf);
         if (cliente == null) {

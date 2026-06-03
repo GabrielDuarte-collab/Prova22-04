@@ -46,6 +46,7 @@ public class Vendas {
         private final int id;
         private final Clientes cliente;
         private final ArrayList<Item> itens = new ArrayList<>();
+        private final long timestamp;
         private boolean finalizada = false;
 
         public Venda(Clientes cliente) {
